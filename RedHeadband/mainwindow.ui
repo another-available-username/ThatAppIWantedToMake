@@ -28,7 +28,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QTextEdit" name="textEdit"/>
+      <widget class="QTextEdit" name="mainEdit"/>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "util.h"
 #include "ui_mainwindow.h"
 
 #include <QDebug>
@@ -11,13 +12,18 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    initSlots();
+}
+
+void MainWindow::initSlots() {
     connect(ui->saveButton, &QPushButton::clicked, this, &MainWindow::save);
 }
 
 void MainWindow::save() {
-    bool ok;
-    QInputDialog::getText(this, "Input the number to change with",
-                              "Number val: ", QLineEdit::Normal, "", &ok);
+    QString editText = ui->mainEdit->toPlainText();
+    string saveText = editText.toStdString();
+    Util* util = new Util();
+    util->save(saveText);
 }
 
 MainWindow::~MainWindow()

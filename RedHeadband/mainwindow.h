@@ -13,6 +13,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    void initSlots();
     ~MainWindow();
 public slots:
     void save();

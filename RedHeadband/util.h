@@ -1,12 +1,15 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include <string>
 
-class util
+using namespace std;
+
+class Util
 {
 public:
-    util();
-    void save();
+    Util();
+    void save(string editText);
 };
 
 #endif // UTIL_H

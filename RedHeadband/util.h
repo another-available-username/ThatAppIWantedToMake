@@ -1,7 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include <string>
+#include <QString>
 
 using namespace std;
 
@@ -9,7 +9,7 @@ class Util
 {
 public:
     Util();
-    void save(string editText);
+    void save(QString path, QString editText);
 };
 
 #endif // UTIL_H

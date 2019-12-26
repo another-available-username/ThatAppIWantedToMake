@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QInputDialog>
 #include <iostream>
+#include <QFileDialog>
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -20,10 +21,12 @@ void MainWindow::initSlots() {
 }
 
 void MainWindow::save() {
+    QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save Address Book"), "",
+            tr("Address Book (*.abk);;All Files (*)"));
     QString editText = ui->mainEdit->toPlainText();
-    string saveText = editText.toStdString();
     Util* util = new Util();
-    util->save(saveText);
+    util->save(fileName, editText);
 }
 
 MainWindow::~MainWindow()

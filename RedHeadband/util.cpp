@@ -2,6 +2,9 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <fstream>
+#include <QFile>
+#include <QByteArray>
+#include <QTextStream>
 
 using namespace std;
 
@@ -10,11 +13,13 @@ Util::Util()
 
 }
 
-void Util::save(string editText) {
+void Util::save(QString path, QString editText) {
     cout << "save() function called in util.cpp" << endl;
-    ofstream myfile;
-    myfile.open("Example.txt");
-    myfile << editText;
-    cout << "Saved: " << editText << endl;
-    myfile.close();
+    QFile file(path);
+    if ( file.open(QIODevice::ReadWrite) ) {
+        QTextStream stream(&file);
+        stream << editText << endl;
+        stream.flush();
+    }
+    file.close();
 }

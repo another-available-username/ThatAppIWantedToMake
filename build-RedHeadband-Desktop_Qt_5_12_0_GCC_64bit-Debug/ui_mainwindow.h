@@ -28,9 +28,10 @@ public:
     QWidget *centralwidget;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
-    QTextEdit *textEdit;
+    QTextEdit *mainEdit;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *saveButton;
+    QPushButton *loadButton;
     QSpacerItem *horizontalSpacer;
     QStatusBar *statusbar;
 
@@ -48,10 +49,10 @@ public:
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        textEdit = new QTextEdit(verticalLayoutWidget);
-        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        mainEdit = new QTextEdit(verticalLayoutWidget);
+        mainEdit->setObjectName(QString::fromUtf8("mainEdit"));
 
-        verticalLayout->addWidget(textEdit);
+        verticalLayout->addWidget(mainEdit);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -59,6 +60,11 @@ public:
         saveButton->setObjectName(QString::fromUtf8("saveButton"));
 
         horizontalLayout_5->addWidget(saveButton);
+
+        loadButton = new QPushButton(verticalLayoutWidget);
+        loadButton->setObjectName(QString::fromUtf8("loadButton"));
+
+        horizontalLayout_5->addWidget(loadButton);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -81,6 +87,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         saveButton->setText(QApplication::translate("MainWindow", "Save", nullptr));
+        loadButton->setText(QApplication::translate("MainWindow", "Load", nullptr));
     } // retranslateUi
 
 };

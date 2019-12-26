@@ -17,6 +17,7 @@ public:
     ~MainWindow();
 public slots:
     void save();
+    void load();
 
 private:
     Ui::MainWindow *ui;

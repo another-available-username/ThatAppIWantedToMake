@@ -46,6 +46,7 @@ void MainWindow::load() {
         QString fileInput = in.readAll();
         qDebug() << fileInput;
         file.close();
+        ui->mainEdit->clear();
         ui->mainEdit->append(fileInput);
     }
 }

@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
@@ -26,7 +27,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QWidget *verticalLayoutWidget;
+    QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
     QTextEdit *mainEdit;
     QHBoxLayout *horizontalLayout_5;
@@ -42,26 +43,24 @@ public:
         MainWindow->resize(800, 600);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        verticalLayoutWidget = new QWidget(centralwidget);
-        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 771, 541));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        gridLayout = new QGridLayout(centralwidget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        mainEdit = new QTextEdit(verticalLayoutWidget);
+        mainEdit = new QTextEdit(centralwidget);
         mainEdit->setObjectName(QString::fromUtf8("mainEdit"));
 
         verticalLayout->addWidget(mainEdit);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        saveButton = new QPushButton(verticalLayoutWidget);
+        saveButton = new QPushButton(centralwidget);
         saveButton->setObjectName(QString::fromUtf8("saveButton"));
 
         horizontalLayout_5->addWidget(saveButton);
 
-        loadButton = new QPushButton(verticalLayoutWidget);
+        loadButton = new QPushButton(centralwidget);
         loadButton->setObjectName(QString::fromUtf8("loadButton"));
 
         horizontalLayout_5->addWidget(loadButton);
@@ -72,6 +71,9 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout_5);
+
+
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);

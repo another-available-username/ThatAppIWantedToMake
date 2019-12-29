@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "util.h"
 #include "ui_mainwindow.h"
+#include "ui_output.h"
 
 #include <QDebug>
 #include <QInputDialog>
@@ -19,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::initSlots() {
     connect(ui->saveButton, &QPushButton::clicked, this, &MainWindow::save);
     connect(ui->loadButton, &QPushButton::clicked, this, &MainWindow::load);
+    connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::run);
 }
 
 void MainWindow::save() {
@@ -49,6 +51,14 @@ void MainWindow::load() {
         ui->mainEdit->clear();
         ui->mainEdit->append(fileInput);
     }
+}
+
+void MainWindow::run() {
+    // Gotta do something written here: https://doc.qt.io/qt-5/designer-using-a-ui-file.html
+    QWidget *wdg = new QWidget;
+    Ui::Console consoleUi;
+    consoleUi.setupUi(wdg);
+    wdg->show();
 }
 
 MainWindow::~MainWindow()

@@ -4,7 +4,10 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+    class MainWindow;
+    class Console;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -18,8 +21,10 @@ public:
 public slots:
     void save();
     void load();
+    void run();
 
 private:
     Ui::MainWindow *ui;
+    Ui::Console *cUi;
 };
 #endif // MAINWINDOW_H

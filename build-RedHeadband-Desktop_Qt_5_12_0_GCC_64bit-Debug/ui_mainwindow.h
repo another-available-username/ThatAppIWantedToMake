@@ -33,6 +33,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QPushButton *saveButton;
     QPushButton *loadButton;
+    QPushButton *runButton;
     QSpacerItem *horizontalSpacer;
     QStatusBar *statusbar;
 
@@ -65,6 +66,11 @@ public:
 
         horizontalLayout_5->addWidget(loadButton);
 
+        runButton = new QPushButton(centralwidget);
+        runButton->setObjectName(QString::fromUtf8("runButton"));
+
+        horizontalLayout_5->addWidget(runButton);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer);
@@ -90,6 +96,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         saveButton->setText(QApplication::translate("MainWindow", "Save", nullptr));
         loadButton->setText(QApplication::translate("MainWindow", "Load", nullptr));
+        runButton->setText(QApplication::translate("MainWindow", "Run", nullptr));
     } // retranslateUi
 
 };

@@ -7,6 +7,8 @@
 #include <QInputDialog>
 #include <iostream>
 #include <QFileDialog>
+#include <stdlib.h>
+#include <QProcess>
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -54,11 +56,20 @@ void MainWindow::load() {
 }
 
 void MainWindow::run() {
+    QProcess javaExec;
+    QString exec = "echo \"There are no answers. Say, you want to get to somewhere, but what's important is that you are heading into that general direction. Look, you are not special.\"";
+    javaExec.start(exec);
+    javaExec.waitForFinished();
+    QString output(javaExec.readAllStandardOutput());
+    qDebug() << output << endl;
+
     // Gotta do something written here: https://doc.qt.io/qt-5/designer-using-a-ui-file.html
     QWidget *wdg = new QWidget;
     Ui::Console consoleUi;
     consoleUi.setupUi(wdg);
     wdg->show();
+    // https://doc.qt.io/qt-5/qprocess.html
+    QProcess::execute("echo \"Hello, World!\"");
 }
 
 MainWindow::~MainWindow()

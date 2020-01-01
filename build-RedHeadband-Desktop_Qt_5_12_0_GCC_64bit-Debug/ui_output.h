@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
 
@@ -19,16 +20,22 @@ QT_BEGIN_NAMESPACE
 class Ui_Console
 {
 public:
-    QLabel *label;
+    QGridLayout *gridLayout;
+    QLabel *ConsoleOutput;
 
     void setupUi(QWidget *Console)
     {
         if (Console->objectName().isEmpty())
             Console->setObjectName(QString::fromUtf8("Console"));
         Console->resize(640, 308);
-        label = new QLabel(Console);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(200, 110, 81, 17));
+        gridLayout = new QGridLayout(Console);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        ConsoleOutput = new QLabel(Console);
+        ConsoleOutput->setObjectName(QString::fromUtf8("ConsoleOutput"));
+        ConsoleOutput->setWordWrap(true);
+
+        gridLayout->addWidget(ConsoleOutput, 0, 0, 1, 1);
+
 
         retranslateUi(Console);
 
@@ -38,7 +45,7 @@ public:
     void retranslateUi(QWidget *Console)
     {
         Console->setWindowTitle(QApplication::translate("Console", "Form", nullptr));
-        label->setText(QApplication::translate("Console", "Some stuff", nullptr));
+        ConsoleOutput->setText(QApplication::translate("Console", "Some stuff", nullptr));
     } // retranslateUi
 
 };

@@ -58,11 +58,16 @@ void MainWindow::load() {
 void MainWindow::run() {
     QProcess javaExec;
     QString exec = "java HelloWorld";
-//    QString exec = "ls";
     javaExec.start(exec);
     javaExec.waitForFinished();
-//    QString output(javaExec.readAllStandardOutput());
-    qDebug() << javaExec.readAllStandardOutput() << endl;
+    QString output(javaExec.readAllStandardOutput());
+    qDebug() << output << endl;
+
+    QWidget *wdg = new QWidget;
+    Ui::Console consoleUi;
+    consoleUi.setupUi(wdg);
+    consoleUi.ConsoleOutput->setText(output);
+    wdg->show();
 }
 
 MainWindow::~MainWindow()

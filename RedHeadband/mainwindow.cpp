@@ -9,6 +9,8 @@
 #include <QFileDialog>
 #include <stdlib.h>
 #include <QProcess>
+#include <QTemporaryFile>
+#include <QDir>
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -56,8 +58,31 @@ void MainWindow::load() {
 }
 
 void MainWindow::run() {
+    // https://doc.qt.io/qt-5/qtemporaryfile.html#QTemporaryFile-1
+    // The X's gets replaced with some random alphabets, automatically.
+    QTemporaryFile file("XXXXXX.java");
+    QString mainEdit = ui->mainEdit->toPlainText();
+
+    qDebug() << mainEdit;
+
+    file.open();
+    QTextStream stream(&file);
+    stream << mainEdit;
+    stream.flush();
+    file.seek(0);
+
+    qDebug() << file.fileName();
+    qDebug() << file.readAll();
+
+    QProcess javacExec;
+    QString compile = "javac " + file.fileName();
+    javacExec.start(compile);
+    javacExec.waitForFinished();
+    QString compileResult(javacExec.readAllStandardOutput());
+    qDebug() << compileResult << endl;
+
     QProcess javaExec;
-    QString exec = "java HelloWorld";
+    QString exec = "java " + file.fileName().remove(".java");
     javaExec.start(exec);
     javaExec.waitForFinished();
     QString output(javaExec.readAllStandardOutput());

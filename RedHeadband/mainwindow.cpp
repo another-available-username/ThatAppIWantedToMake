@@ -11,6 +11,7 @@
 #include <QProcess>
 #include <QTemporaryFile>
 #include <QDir>
+#include <QStringList>
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -58,41 +59,51 @@ void MainWindow::load() {
 }
 
 void MainWindow::run() {
+    QRegExp classHeaderPattern("class\\s+[a-zA-Z]+");
+    QString mainEdit = ui->mainEdit->toPlainText();
+    classHeaderPattern.indexIn(mainEdit);
+    QString classHeader = classHeaderPattern.capturedTexts().at(0);
+
+    qDebug() << "classHeader is: " << classHeader;
+
+    QString className = classHeader.mid(6, classHeader.length() - 1);
+
+    qDebug() << "className at: " << className;
+
     // https://doc.qt.io/qt-5/qtemporaryfile.html#QTemporaryFile-1
     // The X's gets replaced with some random alphabets, automatically.
-    QTemporaryFile file("XXXXXX.java");
-    QString mainEdit = ui->mainEdit->toPlainText();
+//    QTemporaryFile file("XXXXXX.java");
 
-    qDebug() << mainEdit;
+//    qDebug() << mainEdit;
 
-    file.open();
-    QTextStream stream(&file);
-    stream << mainEdit;
-    stream.flush();
-    file.seek(0);
+//    file.open();
+//    QTextStream stream(&file);
+//    stream << mainEdit;
+//    stream.flush();
+//    file.seek(0);
 
-    qDebug() << file.fileName();
-    qDebug() << file.readAll();
+//    qDebug() << file.fileName();
+//    qDebug() << file.readAll();
 
-    QProcess javacExec;
-    QString compile = "javac " + file.fileName();
-    javacExec.start(compile);
-    javacExec.waitForFinished();
-    QString compileResult(javacExec.readAllStandardOutput());
-    qDebug() << compileResult << endl;
+//    QProcess javacExec;
+//    QString compile = "javac " + file.fileName();
+//    javacExec.start(compile);
+//    javacExec.waitForFinished();
+//    QString compileResult(javacExec.readAllStandardOutput());
+//    qDebug() << compileResult << endl;
 
-    QProcess javaExec;
-    QString exec = "java " + file.fileName().remove(".java");
-    javaExec.start(exec);
-    javaExec.waitForFinished();
-    QString output(javaExec.readAllStandardOutput());
-    qDebug() << output << endl;
+//    QProcess javaExec;
+//    QString exec = "java " + file.fileName().remove(".java");
+//    javaExec.start(exec);
+//    javaExec.waitForFinished();
+//    QString output(javaExec.readAllStandardOutput());
+//    qDebug() << output << endl;
 
-    QWidget *wdg = new QWidget;
-    Ui::Console consoleUi;
-    consoleUi.setupUi(wdg);
-    consoleUi.ConsoleOutput->setText(output);
-    wdg->show();
+//    QWidget *wdg = new QWidget;
+//    Ui::Console consoleUi;
+//    consoleUi.setupUi(wdg); // Sets up the user interface for specified widget, which intializes all the forms within the Ui.
+//    consoleUi.ConsoleOutput->setText(output);
+//    wdg->show();
 }
 
 MainWindow::~MainWindow()

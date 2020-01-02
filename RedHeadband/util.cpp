@@ -30,7 +30,7 @@ QString Util::getFileName(QString mainEdit) {
     classHeaderPattern.indexIn(mainEdit);
     QString classHeader = classHeaderPattern.capturedTexts().at(0);
 
-    qDebug() << "classHeader is: " << classHeader;
+    qDebug() << "In Uti::getFileName(), classHeader is: " << classHeader;
 
     return classHeader.mid(6, classHeader.length() - 1);
 }

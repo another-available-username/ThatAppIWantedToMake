@@ -62,34 +62,31 @@ void MainWindow::run() {
     Util* util = new Util();
     QString mainEdit = ui->mainEdit->toPlainText();
     QString className = util->getFileName(mainEdit);
-
-    qDebug() << "className at: " << className;
+    qDebug() << "In MainWindow::run(), className at: " << className;
 
     QFile file(className + ".java");
     file.open(QIODevice::ReadWrite);
-
-    qDebug() << "file's file name at: " << file.fileName();
+    qDebug() << "In MainWindow::run(), file name at: " << file.fileName();
 
     QTextStream stream(&file);
     stream << mainEdit;
     stream.flush();
     file.seek(0);
-
-    qDebug() << "file contents at: " << file.readAll();
+    qDebug() << "In MainWindow::run(), file contents at: " << file.readAll();
 
     QProcess javacExec;
     QString compile = "javac " + file.fileName();
     javacExec.start(compile);
     javacExec.waitForFinished(); // This is super convenient.
     QString compileResult(javacExec.readAllStandardOutput());
-    qDebug() << "Compile result at: " << compileResult;
+    qDebug() << "In MainWindow::run(), compile result at: " << compileResult;
 
     QProcess javaExec;
     QString exec = "java " + file.fileName().remove(".java");
     javaExec.start(exec);
     javaExec.waitForFinished();
     QString output(javaExec.readAllStandardOutput());
-    qDebug() << "Ouput at: " << output << endl;
+    qDebug() << "In MainWindow::run(), ouput at: " << output << endl;
 
     QWidget *wdg = new QWidget;
     Ui::Console consoleUi;

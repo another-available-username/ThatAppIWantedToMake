@@ -72,38 +72,37 @@ void MainWindow::run() {
 
     // https://doc.qt.io/qt-5/qtemporaryfile.html#QTemporaryFile-1
     // The X's gets replaced with some random alphabets, automatically.
-//    QTemporaryFile file("XXXXXX.java");
+    QFile file(className + ".java");
+    file.open(QIODevice::ReadWrite);
 
-//    qDebug() << mainEdit;
+    qDebug() << "file's file name at: " << file.fileName();
 
-//    file.open();
-//    QTextStream stream(&file);
-//    stream << mainEdit;
-//    stream.flush();
-//    file.seek(0);
+    QTextStream stream(&file);
+    stream << mainEdit;
+    stream.flush();
+    file.seek(0);
 
-//    qDebug() << file.fileName();
-//    qDebug() << file.readAll();
+    qDebug() << "file contents at: " << file.readAll();
 
-//    QProcess javacExec;
-//    QString compile = "javac " + file.fileName();
-//    javacExec.start(compile);
-//    javacExec.waitForFinished();
-//    QString compileResult(javacExec.readAllStandardOutput());
-//    qDebug() << compileResult << endl;
+    QProcess javacExec;
+    QString compile = "javac " + file.fileName();
+    javacExec.start(compile);
+    javacExec.waitForFinished(); // This is super convenient.
+    QString compileResult(javacExec.readAllStandardOutput());
+    qDebug() << "Compile result at: " << compileResult;
 
-//    QProcess javaExec;
-//    QString exec = "java " + file.fileName().remove(".java");
-//    javaExec.start(exec);
-//    javaExec.waitForFinished();
-//    QString output(javaExec.readAllStandardOutput());
-//    qDebug() << output << endl;
+    QProcess javaExec;
+    QString exec = "java " + file.fileName().remove(".java");
+    javaExec.start(exec);
+    javaExec.waitForFinished();
+    QString output(javaExec.readAllStandardOutput());
+    qDebug() << "Ouput at: " << output << endl;
 
-//    QWidget *wdg = new QWidget;
-//    Ui::Console consoleUi;
-//    consoleUi.setupUi(wdg); // Sets up the user interface for specified widget, which intializes all the forms within the Ui.
-//    consoleUi.ConsoleOutput->setText(output);
-//    wdg->show();
+    QWidget *wdg = new QWidget;
+    Ui::Console consoleUi;
+    consoleUi.setupUi(wdg); // Sets up the user interface for specified widget, which intializes all the forms within the Ui.
+    consoleUi.ConsoleOutput->setText(output);
+    wdg->show();
 }
 
 MainWindow::~MainWindow()

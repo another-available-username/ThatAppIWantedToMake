@@ -59,19 +59,12 @@ void MainWindow::load() {
 }
 
 void MainWindow::run() {
-    QRegExp classHeaderPattern("class\\s+[a-zA-Z]+");
+    Util* util = new Util();
     QString mainEdit = ui->mainEdit->toPlainText();
-    classHeaderPattern.indexIn(mainEdit);
-    QString classHeader = classHeaderPattern.capturedTexts().at(0);
-
-    qDebug() << "classHeader is: " << classHeader;
-
-    QString className = classHeader.mid(6, classHeader.length() - 1);
+    QString className = util->getFileName(mainEdit);
 
     qDebug() << "className at: " << className;
 
-    // https://doc.qt.io/qt-5/qtemporaryfile.html#QTemporaryFile-1
-    // The X's gets replaced with some random alphabets, automatically.
     QFile file(className + ".java");
     file.open(QIODevice::ReadWrite);
 

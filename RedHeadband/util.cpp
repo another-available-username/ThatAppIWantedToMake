@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QByteArray>
 #include <QTextStream>
+#include <QDebug>
 
 using namespace std;
 
@@ -22,4 +23,14 @@ void Util::save(QString path, QString editText) {
         stream.flush();
     }
     file.close();
+}
+
+QString Util::getFileName(QString mainEdit) {
+    QRegExp classHeaderPattern("class\\s+[a-zA-Z]+");
+    classHeaderPattern.indexIn(mainEdit);
+    QString classHeader = classHeaderPattern.capturedTexts().at(0);
+
+    qDebug() << "classHeader is: " << classHeader;
+
+    return classHeader.mid(6, classHeader.length() - 1);
 }

@@ -16,13 +16,13 @@
 #include <QRunnable>
 using namespace std;
 
-class DoSomethingTask : public QRunnable{
+class CreateOutput : public QRunnable{
 
     QString className;
     QString mainEdit;
 
     public:
-        DoSomethingTask(QString mainEdit, QString className) {
+        CreateOutput(QString mainEdit, QString className) {
             this->mainEdit = mainEdit;
             this->className = className;
         }
@@ -110,7 +110,7 @@ void MainWindow::run() {
     QString className = util->getFileName(mainEdit);
     qDebug() << "In MainWindow::run(), className at: " << className;
 
-    auto aTask = new DoSomethingTask(mainEdit, className);
+    CreateOutput* aTask = new CreateOutput(mainEdit, className);
     QThreadPool::globalInstance() -> start(aTask);
 }
 

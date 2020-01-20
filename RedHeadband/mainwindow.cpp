@@ -66,6 +66,8 @@ void MainWindow::run() {
     QString className = util->getFileName(mainEdit);
     qDebug() << "In MainWindow::run(), className at: " << className;
 
+    // Will delete the task immediately after it's finished.
+    // QThreadPool has functions like setMaxThreadCount() and setExpiryTimerout().
     QThreadPool::globalInstance() -> start(new Util(mainEdit, className));
 }
 

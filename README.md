@@ -6,7 +6,7 @@ I want to make a programming environment that only has what's necessary for a co
 The app enables me to chuck in Java code ...
 ![Image description](https://github.com/dlee67/ThatAppIWantedToMake/blob/master/RHPic1.png)
 
-and execute it, after hitting "run."
+and execute it, after hitting "run" (you can still interact with the editor while it's running).
 ![Image description](https://github.com/dlee67/ThatAppIWantedToMake/blob/master/RHPic2.png)
 
 Can save the code you currently have in the editor and load it later ...

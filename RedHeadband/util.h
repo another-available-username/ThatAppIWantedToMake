@@ -1,16 +1,25 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include <QRunnable>
 #include <QString>
 
 using namespace std;
 
-class Util
+class Util : public QRunnable
 {
-public:
-    Util();
-    void save(QString path, QString editText);
-    QString getFileName(QString mainEdit);
+    QString className;
+    QString mainEdit;
+
+    public:
+        Util();
+        Util(QString mainEdit, QString className) {
+            this->mainEdit = mainEdit;
+            this->className = className;
+        }
+        void save(QString path, QString editText);
+        void run() override;
+        QString getFileName(QString mainEdit);
 };
 
 #endif // UTIL_H

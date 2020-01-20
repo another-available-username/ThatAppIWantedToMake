@@ -16,50 +16,6 @@
 #include <QRunnable>
 using namespace std;
 
-class CreateOutput : public QRunnable{
-
-    QString className;
-    QString mainEdit;
-
-    public:
-        CreateOutput(QString mainEdit, QString className) {
-            this->mainEdit = mainEdit;
-            this->className = className;
-        }
-
-    void run() override{
-        QFile file(className + ".java");
-        file.open(QIODevice::ReadWrite);
-        qDebug() << "In MainWindow::run(), file name at: " << file.fileName();
-
-        QTextStream stream(&file);
-        stream << mainEdit;
-        stream.flush();
-        file.seek(0);
-        qDebug() << "In MainWindow::run(), file contents at: " << file.readAll();
-
-        QProcess javacExec;
-        QString compile = "javac " + file.fileName();
-        javacExec.start(compile);
-        javacExec.waitForFinished(); // This is super convenient.
-        QString compileResult(javacExec.readAllStandardOutput());
-        qDebug() << "In MainWindow::run(), compile result at: " << compileResult;
-
-        QProcess javaExec;
-        QString exec = "java " + file.fileName().remove(".java");
-        javaExec.start(exec);
-        javaExec.waitForFinished();
-        QString output(javaExec.readAllStandardOutput());
-        qDebug() << "In MainWindow::run(), ouput at: " << output << endl;
-
-        QWidget *wdg = new QWidget;
-        Ui::Console consoleUi;
-        consoleUi.setupUi(wdg); // Sets up the user interface for specified widget, which intializes all the forms within the Ui.
-        consoleUi.ConsoleOutput->setText(output);
-        wdg->show();
-    }
-};
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -110,8 +66,7 @@ void MainWindow::run() {
     QString className = util->getFileName(mainEdit);
     qDebug() << "In MainWindow::run(), className at: " << className;
 
-    CreateOutput* aTask = new CreateOutput(mainEdit, className);
-    QThreadPool::globalInstance() -> start(aTask);
+    QThreadPool::globalInstance() -> start(new Util(mainEdit, className));
 }
 
 MainWindow::~MainWindow()
